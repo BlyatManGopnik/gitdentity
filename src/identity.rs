@@ -21,7 +21,10 @@ fn identity_prompt() {
         1 => create_identity(pathstr),
         2 => delete_identity(pathstrclone),
         3 => std::process::exit(0),
-        _ => println!("Invalid input")
+        _ => {
+            println!("Invalid input");
+            identity_prompt();
+        }
     }
 }
 

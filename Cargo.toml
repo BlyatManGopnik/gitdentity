@@ -11,3 +11,6 @@ rusqlite = "0.24.2"
 dirs = "3.0.1"
 promptly = "0.3.0"
 git-config = "0.1.0"
+
+[features]
+bundled = ["rusqlite/bundled"]
