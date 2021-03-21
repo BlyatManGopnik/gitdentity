@@ -12,7 +12,7 @@ struct Identity {
     email: String
 }
 
-/// This function aceepts accepts input in the CLI and displays a prompt where the user can input a number.
+/// This function accepts input in the CLI and displays a prompt where the user can input a number.
 fn identity_prompt() {
     let path = Path::new(&format!("{}/gitdentity", dirs::config_dir().expect("Error reading config dir").to_str().unwrap())).to_owned();
     let pathstr = String::from(path.to_str().unwrap());
@@ -47,7 +47,7 @@ pub fn edit_identity() {
     identity_prompt()
 }
 
-/// Prints every identity from the database
+/// Prints every identity from the database.
 fn get_identity(pathstr: String) {
     let conn = Connection::open(format!("{}/database.db", pathstr)).unwrap();
     let mut identity = conn.prepare("
@@ -67,7 +67,7 @@ fn get_identity(pathstr: String) {
     }
 }
 
-/// Creates an identity and inserts it into the database
+/// Creates an identity and inserts it into the database.
 fn create_identity(pathstr: String) {
     let idname: String = prompt("What idname do you want the identity to have").expect("Error");
     let name: String = prompt("What name do you want your identity to have").expect("Error");
@@ -81,7 +81,7 @@ fn create_identity(pathstr: String) {
     identity_prompt();
 }
 
-/// Takes an id and deletes the identity
+/// Takes an id and deletes the identity.
 fn delete_identity(pathstr: String) {
     let iden: i32 = prompt("What identity do you wanna delete").expect("Error");
     let conn = Connection::open(format!("{}/database.db", pathstr)).unwrap();
@@ -95,7 +95,7 @@ fn delete_identity(pathstr: String) {
 }
 
 /// Reads .gitconfig from your home folder and writes the identity that 
-/// you gave it through arguments given to the command to .gitconfig
+/// you gave it through arguments given to the command to .gitconfig.
 pub fn set_identity(identity: String) {
     let homedir = dirs::home_dir().unwrap();
     let path = Path::new(&format!("{}/gitdentity", dirs::config_dir().expect("Error reading config dir").to_str().unwrap())).to_owned();
@@ -123,7 +123,7 @@ pub fn set_identity(identity: String) {
     }
 }
 
-/// Creates the database in the operating system's config directory
+/// Creates the database in the operating system's config directory.
 fn create_database(dir: String) -> std::io::Result<()> {
     println!("Creating database");
     let dirclone = dir.clone();
@@ -141,7 +141,7 @@ fn create_database(dir: String) -> std::io::Result<()> {
     Ok(())
 }
 
-// Reads a number input
+// Reads a number input.
 fn read_user_input_int() -> i32 {
     let i: i32 = prompt("> ").expect("Please enter a number");
     i
