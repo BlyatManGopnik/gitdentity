@@ -6,7 +6,7 @@ edition = "2018"
 description = "Git identity changer"
 repository = "https://github.com/BlyatManGopnik/gitdentity"
 keywords = ["git", "identity", "cli", "sqlite"]
-licence = "GPL-3.0"
+license = "GPL-3.0"
 readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
