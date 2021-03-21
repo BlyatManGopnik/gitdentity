@@ -1,6 +1,6 @@
 [package]
 name = "gitdentity"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["BlyatManGopnik <emailforsurveys420@gmail.com>"]
 edition = "2018"
 
@@ -10,4 +10,4 @@ edition = "2018"
 rusqlite = "0.24.2"
 dirs = "3.0.1"
 promptly = "0.3.0"
-toml_edit = "0.2.0"
+git-config = "0.1.0"

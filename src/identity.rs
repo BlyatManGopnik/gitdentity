@@ -1,10 +1,10 @@
 use std::path::Path;
 use std::fs;
-use dirs::home_dir;
 use promptly::prompt;
-use rusqlite::Connection;
+use rusqlite::{Connection, params};
 use rusqlite::NO_PARAMS;
-
+use git_config::file::GitConfig;
+use std::convert::TryFrom;
 struct Identity {
     id: i32,
     idname: String,
@@ -88,9 +88,29 @@ fn delete_identity(pathstr: String) {
 
 pub fn set_identity(identity: String) {
     let homedir = dirs::home_dir().unwrap();
-    let gitconfig = fs::read_to_string(format!("{}/.gitconfig", homedir.to_str().unwrap()))
-        .expect("Failed to read .gitconfig");
-    println!("When the imposter is sus: {}", gitconfig);
+    let path = Path::new(&format!("{}/gitdentity", dirs::config_dir().expect("Error reading config dir").to_str().unwrap())).to_owned();
+    let pathstr = String::from(path.to_str().unwrap());
+    let conn = Connection::open(format!("{}/database.db", pathstr)).unwrap();
+    let mut statement = conn.prepare("SELECT * FROM identities WHERE idname=(?1)").unwrap();
+    let iden = statement.query_map(params![identity], |row| {
+        Ok(Identity {
+            id: row.get(0)?,
+            idname: row.get(1)?,
+            name: row.get(2)?,
+            email: row.get(3)?,
+        })
+    }).unwrap();
+    for id in iden {
+        let i = id.unwrap();
+        let gitconfig = fs::read_to_string(format!("{}/.gitconfig", homedir.to_str().unwrap()))
+            .expect("Failed to read .gitconfig");
+        let sus: &str = &gitconfig;
+        let mut config = GitConfig::try_from(sus).unwrap();
+        config.set_raw_value("user", None, "name", i.name.as_bytes().to_vec()).unwrap();
+        config.set_raw_value("user", None, "email", i.email.as_bytes().to_vec()).unwrap();
+        fs::write(format!("{}/.gitconfig", homedir.to_str().unwrap()), config.to_string()).expect("Error writing file");
+        println!("I have wrote the {} identity to {}", i.idname, format!("{}/.gitconfig", homedir.to_str().unwrap()));
+    }
 }
 
 fn create_database(dir: String) -> std::io::Result<()> {
