@@ -8,16 +8,16 @@ cargo install gitdentity
 ```
 ## Usage
 ### CLI
-This program comes with a CLI manager for managing your identities. You can run it by not giving the program any arguments. Here is what the CLI looks like.
+This program comes with a CLI manager for managing your identities. You can run it by not giving the program any arguments. Here is what the CLI looks like. v1.0.1 lets you use letters instead of numbers for input. The numbers are still supported if you want to use them.
 ```
 Gitdentity
 Current Identities:
 ------------------
 1 | example | Example Name | example@example.net
 2 | example2 | Example Person | example.person@example.net
-1) Add an Identity
-2) Delete an Identity
-3) Exit this program
+a) Add an Identity
+d) Delete an Identity
+e) Exit this program
 > : 
 ```
 You can add an identity with `1` and it will write the identity to the SQLite database. You can delete an identity with `2` and it will delete the identity out of the database. You can exit the program with `3`.
