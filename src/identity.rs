@@ -17,7 +17,30 @@ fn identity_prompt() {
     let path = Path::new(&format!("{}/gitdentity", dirs::config_dir().expect("Error reading config dir").to_str().unwrap())).to_owned();
     let pathstr = String::from(path.to_str().unwrap());
     let pathstrclone = pathstr.clone();
-    let input = read_user_input_int();
+    let input = read_user_input();
+    if input.parse::<i32>().is_ok() {
+        let i = input.parse::<i32>();
+        match_input_int(i.unwrap(), pathstr, pathstrclone);
+    } else {
+        match_input_string(&input, &pathstr, &pathstrclone)
+    }
+}
+
+/// This function matches user input to a string
+fn match_input_string(input: &str, pathstr: &str, pathstrclone: &str) {
+    match input {
+        "a" => create_identity(pathstr.to_string()),
+        "d" => delete_identity(pathstrclone.to_string()),
+        "e" => std::process::exit(0),
+        _ => {
+            println!("Invalid input");
+            identity_prompt();
+        }
+    }
+}
+
+/// This function matches user input to an integer
+fn match_input_int(input: i32, pathstr: String, pathstrclone: String) {
     match input {
         1 => create_identity(pathstr),
         2 => delete_identity(pathstrclone),
@@ -41,9 +64,9 @@ pub fn edit_identity() {
     println!("Current Identities:");
     println!("------------------");
     get_identity(pathstrclone);
-    println!("1) Add an Identity");
-    println!("2) Delete an Identity");
-    println!("3) Exit this program");
+    println!("a) Add an Identity");
+    println!("d) Delete an Identity");
+    println!("e) Exit this program");
     identity_prompt()
 }
 
@@ -142,7 +165,7 @@ fn create_database(dir: String) -> std::io::Result<()> {
 }
 
 // Reads a number input.
-fn read_user_input_int() -> i32 {
-    let i: i32 = prompt("> ").expect("Please enter a number");
+fn read_user_input() -> String {
+    let i: String = prompt("> ").expect("An error has occured when trying to accept User Input");
     i
 }
