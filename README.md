@@ -1,4 +1,4 @@
-# gitdentity v1.0.0
+# gitdentity v1.0.1
 You ever have multiple Git identities and you need to switch between them. This program stores git identities in a database and lets you switch between them with a short ID name so you don't have to repeat `git config --global` commands every time you want to commit with another git identity.
 
 ## Installation
