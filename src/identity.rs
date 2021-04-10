@@ -31,7 +31,7 @@ fn match_input_string(input: &str, pathstr: &str, pathstrclone: &str) {
     match input {
         "a" => create_identity(pathstr.to_string()),
         "d" => delete_identity(pathstrclone.to_string()),
-        "e" => std::process::exit(0),
+        "e" | "q" => std::process::exit(0),
         _ => {
             println!("Invalid input");
             identity_prompt();
