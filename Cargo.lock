@@ -189,7 +189,7 @@ dependencies = [
 
 [[package]]
 name = "gitdentity"
-version = "1.0.1"
+version = "1.0.2"
 dependencies = [
  "dirs",
  "git-config",

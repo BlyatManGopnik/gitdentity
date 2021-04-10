@@ -1,6 +1,6 @@
 [package]
 name = "gitdentity"
-version = "1.0.1"
+version = "1.0.2"
 authors = ["BlyatManGopnik <emailforsurveys420@gmail.com>"]
 edition = "2018"
 description = "Git identity changer"
